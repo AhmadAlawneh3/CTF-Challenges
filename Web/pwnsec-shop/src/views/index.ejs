@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Home</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+    
+    <main class="container mx-auto mt-10 px-4 flex-grow">
+        <div class="bg-white shadow rounded-lg p-8">
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-5">Welcome to PwnSec Shop!</h2>
+            <p class="text-lg text-gray-600 mb-8">Find the best products and deals right here.</p>
+            <div class="space-y-4">
+                <% if (!user.loggedIn) { %>
+                    <a href="/auth/login" class="block text-center text-white bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-md shadow-md">
+                        Login
+                    </a>
+                    <a href="/auth/register" class="block text-center text-white bg-green-600 hover:bg-green-700 px-6 py-3 rounded-md shadow-md">
+                        Register
+                    </a>
+                <% } %>
+                <a href="/products" class="block text-center text-white bg-yellow-500 hover:bg-yellow-600 px-6 py-3 rounded-md shadow-md">
+                    View Products
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

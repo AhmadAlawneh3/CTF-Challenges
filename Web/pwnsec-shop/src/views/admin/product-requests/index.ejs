@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-10 px-4">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h1 class="text-3xl font-bold mb-6"><%= title %></h1>
+            <table class="table-auto w-full mt-4">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2">Product Name</th>
+                        <th class="px-4 py-2">Vendor</th>
+                        <th class="px-4 py-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% pendingRequests.forEach(request => { %>
+                        <tr>
+                            <td class="border px-4 py-2"><%= request.product.name %></td>
+                            <td class="border px-4 py-2"><%= request.vendor.username %></td>
+                            <td class="border px-4 py-2">
+                                <a href="/admin/product-requests/<%= request._id %>" class="bg-blue-500 text-white px-4 py-2 rounded inline-block">View Details</a>
+                                <form action="/admin/product-requests/<%= request._id %>/approve" method="POST" class="inline">
+                                    <button class="bg-green-500 text-white px-4 py-2 rounded">Approve</button>
+                                </form>
+                                <form action="/admin/product-requests/<%= request._id %>/reject" method="POST" class="inline">
+                                    <button class="bg-red-500 text-white px-4 py-2 rounded">Reject</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

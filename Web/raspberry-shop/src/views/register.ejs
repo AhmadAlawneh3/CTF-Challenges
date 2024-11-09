@@ -1,0 +1,24 @@
+<%- include('partials/head',{title:"Register"}) %>
+<%- include('partials/navbar') %>
+    <div class="container">
+        <h1>Register</h1>
+        <% if (typeof message !== 'undefined') { %>
+            <div class="message">
+                <p><%= message %></p>
+            </div>
+        <% } %>
+        <form action="/register" method="post">
+            <label for="email">
+                <input type="email" name="email" placeholder="Email" id="email" required>
+            </label>
+            <label for="password">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+            </label>
+            <label for="password2">
+                <input type="password" name="passwordConfirmation" id="password2" placeholder="Confirm Password" required>
+            </label>
+            <button type="submit">Register</button>
+            <a href="/reset-password">Reset Password</a>
+        </form>
+    </div>
+<%- include('partials/footer') %>

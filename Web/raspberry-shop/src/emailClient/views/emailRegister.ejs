@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.webp">
+    <title>Email Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        .navbar {
+            background-color: #0062ff;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar .title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .navbar .links {
+            display: flex;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin: 30px auto;
+            max-width: 600px;
+            width: 90%;
+        }
+        .footer {
+            margin-top: auto;
+            padding: 15px;
+            text-align: center;
+            color: grey;
+            background-color: #f9f9f9;
+            width: 100%;
+            box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+        }
+        input{
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 96%;
+        }
+        button {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+            background-color: #0062ff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0095ff;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="title">Email Client</div>
+        <div class="links">
+            <% if (EmailLoggedin) { %>
+                <a href="/mail/logout">Logout</a>
+            <% } else { %>
+                <a href="/mail/login">Login</a>
+                <a href="/mail/register">Register</a>
+            <% } %>
+            <a href="/">Raspberry Shop</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Email Register</h1>
+        <% if (message) { %>
+        <p><%= message %></p>
+        <% } %>
+        <form action="/mail/register" method="post">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="passwordConfirmation" placeholder="Confirm Password" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div class="footer">
+        Contact admin for any help at <a href="mailto:admin@raspberryshop.com">admin@raspberryshop.com</a>
+    </div>
+
+</body>
+</html>

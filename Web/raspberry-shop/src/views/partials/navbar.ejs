@@ -1,0 +1,13 @@
+<div class="navbar">
+    <div class="title">Raspberry Shop</div>
+    <div class="links">
+        <% if (mainLoggedin) { %>
+            <a href="/home">Shop</a>
+            <a href="/logout">Logout</a>
+        <% } else { %>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        <% } %>
+        <a href="/mail">Email Client</a>
+    </div>
+</div>

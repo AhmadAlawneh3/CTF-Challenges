@@ -1,0 +1,12 @@
+services:
+  app:
+    build: .
+    container_name: Raspberry_shop
+    hostname: Raspberry_shop
+    ports:
+      - 8080:8080
+    environment:
+      - FLAG=PWNSEC{I_love_raspberries_do_you?}
+      - PORT=8080
+    volumes:
+      - ./src/app.js:/usr/src/app/app.js

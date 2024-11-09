@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.webp">
+    <title>Email Inbox</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        .navbar {
+            background-color: #0062ff;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar .title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .navbar .links {
+            display: flex;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin: 30px auto;
+            max-width: 800px;
+            width: 90%;
+        }
+        .email-header {
+            border-bottom: 2px solid #0062ff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .email-header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+        .email-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .email-list li {
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .email-list li:last-child {
+            border-bottom: none;
+        }
+        .email-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .email-info strong {
+            font-size: 16px;
+        }
+        .email-info span {
+            font-size: 14px;
+            color: #555;
+        }
+        .footer {
+            margin-top: auto;
+            padding: 15px;
+            text-align: center;
+            color: grey;
+            background-color: #f9f9f9;
+            width: 100%;
+            box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="title">Email Client</div>
+        <div class="links">
+            <a href="/mail/logout">Logout</a>
+            <a href="/">Raspberry Shop</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="email-header">
+            <h1>Inbox - <%= email %></h1>
+            <span><%= emails.length %> Messages</span>
+        </div>
+        <% if (emails.length > 0) { %>
+        <ul class="email-list">
+            <% emails.slice().reverse().forEach((email) => { %>
+            <li>
+                <div class="email-info">
+                    <strong>From: <%= email.from %></strong>
+                    <span><%= email.timestamp.toLocaleString() %></span>
+                    <p>Here is your password reset link: <a href="<%= email.link %>"><%= email.link %></a></p>
+                </div>
+            </li>
+            <% }) %>
+        </ul>
+        <% } else { %>
+            <p>No emails.</p>
+        <% } %>
+    </div>
+
+    <div class="footer">
+        Contact admin for any help at <a href="mailto:admin@raspberryshop.com">admin@raspberryshop.com</a>
+    </div>
+
+</body>
+</html>

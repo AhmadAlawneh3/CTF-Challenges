@@ -1,0 +1,86 @@
+<%- include('partials/head',{title:"Shop"}) %>
+<%- include('partials/navbar') %>
+<div class="outerdiv">
+
+    <div class="container">
+        
+        <% if (admin) { %>
+             <h1>Welcome Admin!</h1>
+             <p class="message">Order your favourite item. On the house ;)</p>  
+        <% } else { %>
+            <h1>Welcome to the Raspberry Shop</h1>
+            <p class="message">Feel free to browse our delicious items, but unfortunately, only an admin can place an order due to a technical error. Are you an admin?</p>
+            <p class="message">Your account manager is: <%= manager %></p>
+        <% } %>
+    </div>
+
+    <div class="container image">
+        <img src="/images/1.webp" alt="">
+        <span>
+            <p class="products">Raspberry Ice Cream</p> 
+            <p class="prices">$4.99</p>
+            <button class="fake-button">Add to cart</button>
+        </span> 
+    </div>
+
+    <div class="card js-card">
+        <div class="container image" id="flag-container">
+            <div class="card__side is-active">
+                <img src="/images/2.jpg" alt="">
+                <span>
+                    <p class="products">Raspberry Juice</p> 
+                    <p class="prices">$5.99</p>
+                    <button class="fake-button" id="btn">Add to cart</button>
+                </span>
+            </div>
+            <% if (admin){ %>
+            <div class="card__side card__side--back">
+                <p class="message" id="flag"><%= flag %></p>
+            </div>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="container image">
+        <img src="/images/3.jpg" alt="">
+        <span>
+            <p class="products">Raspberry Cake</p> 
+            <p class="prices">$9.99</p>
+            <button class="fake-button">Add to cart</button>
+        </span>
+    </div>
+
+    <% if (admin){ %>
+        <script>
+            let cardTransitionTime = 500;
+            let $card = $('.js-card');
+            let switching = false;
+
+            $('#btn').click(showFlag);
+
+            function showFlag () {
+                if (switching) {
+                    return false;
+                }
+                switching = true;
+                
+                $card.toggleClass('is-switched');
+                window.setTimeout(function () {
+                    $card.find('.card__side').toggleClass('is-active')
+                    $('#flag-container').css({
+                        'display': 'flex',
+                        'align-items': 'center',
+                        'justify-content': 'center'
+                    });
+                    switching = false;
+                }, cardTransitionTime / 2)
+                $('.card__side.card__side--back').show();
+            }
+        </script>
+    <% } %>
+</div>
+
+<%- include('partials/footer') %>
+
+
+

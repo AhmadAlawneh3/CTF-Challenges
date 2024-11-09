@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', (event) => {
+                    const form = event.target.closest('form');
+                    const productId = form.querySelector('input[name="productId"]').value;
+                    const quantity = event.target.value;
+
+                    fetch(`/cart/update/${productId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ quantity })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            
+                            document.querySelector(`#total-${productId}`).textContent = `$${data.totalPrice}`;
+                            document.querySelector('#total-amount').textContent = `$${data.totalAmount}`;
+                        } else {
+                            alert('Failed to update quantity');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                });
+            });
+
+            document.querySelector('#place-order-form').addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const products = Array.from(document.querySelectorAll('.product-item')).map(item => ({
+                    productId: item.querySelector('input[name="productId"]').value,
+                    quantity: item.querySelector('input[name="quantity"]').value
+                }));
+
+                try {
+                    const response = await fetch('/orders', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ products })
+                    });
+
+                    const data = await response.json();
+                    if (response.ok) {
+                        alert('Order placed successfully');
+                        window.location.href = '/cart'; 
+                    } else {
+                        alert(`Failed to place order: ${data.error}`);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Failed to place order');
+                }
+            });
+        });
+
+        function removeProduct(productId) {
+            fetch(`/cart/remove/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Failed to remove product');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-10 px-4">
+        <h1 class="text-3xl font-bold mb-6">Your Cart</h1>
+
+        <% if (cart && cart.products.length > 0) { %>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <ul class="space-y-4">
+                    <% let total = 0; %>
+                    <% cart.products.forEach((product) => { %>
+                        <li class="flex justify-between items-center border-b pb-4 product-item">
+                            <div>
+                                <h2 class="text-xl font-semibold"><%= product.name %></h2>
+                                <p class="text-gray-700">$<%= product.price %> each</p>
+                            </div>
+                            <form class="flex items-center space-x-4">
+                                <input type="hidden" name="productId" value="<%= product._id %>">
+                                <input type="number" name="quantity" value="<%= product.quantity %>" min="1" class="quantity-input border border-gray-300 rounded-md px-2 py-1 w-20 focus:ring-blue-500 focus:border-blue-500" required>
+                                <button type="button" name="action" value="remove" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-md shadow-md transition duration-300" onclick="removeProduct('<%= product._id %>')">
+                                    Remove
+                                </button>
+                            </form>
+                            <p id="total-<%= product._id %>" class="text-xl font-semibold">$<%= product.price * product.quantity %></p>
+                            <% total += product.price * product.quantity; %>
+                        </li>
+                    <% }) %>
+                </ul>
+
+                <div class="mt-6">
+                    <h2 class="text-2xl font-bold">Total: <span id="total-amount">$<%= total %></span></h2>
+                </div>
+
+                <form id="place-order-form" class="mt-6">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-md shadow-md transition duration-300">
+                        Place Order
+                    </button>
+                </form>
+            </div>
+        <% } else { %>
+            <p class="text-gray-700">Your cart is empty. <a href="/products" class="text-blue-500 hover:underline">Continue Shopping</a></p>
+        <% } %>
+    </div>
+</body>
+</html>

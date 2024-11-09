@@ -1,0 +1,26 @@
+<%- include('partials/head',{title:"Login"}) %>
+<%- include('partials/navbar') %>
+
+<div class="container">
+    <h1>Login</h1>
+    <% if (typeof message !== 'undefined') { %>
+        <div class="message">
+            <p><%= message %></p>
+        </div>
+    <% } %>
+    <form action="/login" method="post">
+        <div class="outerdiv">
+            <label for="email">
+                <input type="email" name="email" placeholder="Email" id="email" required>
+            </label>
+            <label for="password">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+            </label>
+            <button type="submit">Login</button>
+        </div>
+        <a href="/reset-password">Reset Password</a>
+    </form>
+</div>
+
+
+<%- include('partials/footer') %>

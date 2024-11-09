@@ -1,0 +1,24 @@
+name: PwnSec Shop
+author: Reddington
+category: Web 
+description: |-
+  PwnSec Shop where the best products and deals are right here.
+
+  <font color="gray">Reddington</font>
+tags:
+  - Medium
+flags:
+  - PWNSEC{TH4Nk_Y0u_f0r_Sh0P1n9_at_PWNS3c_SH0p}
+
+state: hidden
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 50
+  minimum: 100
+
+# files:
+#   - handouts/pwnsec-shop.zip
+
+connection_info: https://web-pwnsecshop.pwnsec.xyz/

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+
+    <nav class="bg-gray-800 p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Shop Name -->
+            <a href="/" class="flex items-center">
+                <img src="/images/logo.png" alt="Logo" class="h-9 w-9 mr-2">
+                <div class="text-white font-bold text-xl">
+                    PwnSec Shop
+                </div>
+            </a>
+            <!-- Navigation Links -->
+            <ul class="flex space-x-4 items-center mx-auto">
+                <li><a href="/" class="text-white hover:underline">Home</a></li>
+                <li><a href="/products" class="text-white hover:underline">Products</a></li>
+            </ul>
+            
+            <!-- User Links -->
+            <ul class="flex space-x-4 items-center">
+                <% if (!user.loggedIn) { %> 
+                    <li>
+                        <a href="/auth/register" class="text-white hover:underline flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="h-5 w-5" fill="white">
+                                <path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3zM504 312l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/auth/login" class="text-white hover:underline flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-5 w-5" fill="white">
+                                <path d="M352 96l64 0c17.7 0 32 14.3 32 32l0 256c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0c53 0 96-43 96-96l0-256c0-53-43-96-96-96l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32zm-9.4 182.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L242.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z"/>
+                            </svg>
+                        </a>
+                    </li>
+                <% } else { %>
+                    <li>
+                        <a href="/profile" class="text-white hover:underline flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="white" class="h-5 w-5 mr-1">
+                                <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"/>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/cart" class="text-white hover:underline flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 576 512" fill="white">
+                                <path d="M0 24C0 10.7 10.7 0 24 0L69.5 0c22 0 41.5 12.8 50.6 32l411 0c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3l-288.5 0 5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5L488 336c13.3 0 24 10.7 24 24s-10.7 24-24 24l-288.3 0c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5L24 48C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/auth/logout" class="text-white hover:underline flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="white" class="h-5 w-5 mr-1">
+                                <path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"/>
+                            </svg>
+                        </a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </nav>
+
+    <% if (user && (user.role === 'admin')) { %>
+        <nav class="bg-gray-700 p-2">
+            <div class="container mx-auto flex justify-between items-center">
+                <ul class="flex space-x-4">
+                    <li>
+                        <a href="/admin" class="text-white hover:underline">Admin Panel</a>
+                    </li>
+                    <li>
+                        <a href="/admin/orders" class="text-white hover:underline">Orders</a>
+                    </li>
+                    <li>
+                        <a href="/admin/product-requests" class="text-white hover:underline">Vendor Requests</a>
+                    </li>
+                    <li>
+                        <a href="/admin/product-photos" class="text-white hover:underline">Product Photos</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    <% } %>
+    <% if (user && (user.role === 'vendor')) { %>
+        <nav class="bg-gray-700 p-2">
+            <div class="container mx-auto flex justify-between items-center">
+                <ul class="flex space-x-4">
+                    <li>
+                        <a href="/vendor" class="text-white hover:underline">Vendor Panel</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    <% } %>
+    
+    <div class="container mx-auto py-8 flex-grow">
+        <%- body %>
+    </div>
+    
+    <footer class="bg-gray-800 w-full">
+        <div class="container mx-auto py-4 px-4 text-center">
+            <p class="text-gray-400 text-sm">© 2024 PwnSec Shop Site. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

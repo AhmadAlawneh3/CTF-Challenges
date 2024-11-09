@@ -1,0 +1,21 @@
+name: Raspberry Shop
+author: Reddington
+category: Web 
+description: |-
+  Do you love raspberries as much as I do? You never will.
+
+  <font color="gray">Reddington</font>
+tags:
+  - Medium
+flags:
+  - PWNSEC{I_love_raspberries_do_you?}
+
+state: hidden
+value: 500
+type: dynamic
+extra:
+  initial: 500
+  decay: 50
+  minimum: 100
+
+connection_info: https://web-raspberryshop.pwnsec.xyz/

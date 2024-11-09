@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-10 px-4">
+        <h1 class="text-3xl font-bold mb-6"><%= title %></h1>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-4">Product Details</h2>
+            <p><strong>Name:</strong> <%= request.product.name %></p>
+            <p><strong>Description:</strong> <%= request.product.description %></p>
+            <p><strong>Price:</strong> $<%= request.product.price %></p>
+            <p><strong>Category:</strong> <%= request.product.category %></p>
+            <p><strong>Stock:</strong> <%= request.product.stock %></p>
+            <% if (request.product.image) { %>
+                <img src="<%= request.product.image %>" alt="<%= request.product.name %>" class="w-32 h-32 object-cover mt-4">
+            <% } %>
+            <h2 class="text-2xl font-bold mt-6 mb-4">Vendor Details</h2>
+            <p><strong>Username:</strong> <%= request.vendor.username %></p>
+            <p><strong>Email:</strong> <%= request.vendor.email %></p>
+            <div class="flex items-center justify-between mt-6">
+                <form action="/admin/product-requests/<%= request._id %>/approve" method="POST" class="inline">
+                    <button class="bg-green-500 text-white px-4 py-2 rounded">Approve</button>
+                </form>
+                <form action="/admin/product-requests/<%= request._id %>/reject" method="POST" class="inline">
+                    <button class="bg-red-500 text-white px-4 py-2 rounded">Reject</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
